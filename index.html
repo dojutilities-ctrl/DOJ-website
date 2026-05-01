@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DoJ Website</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+    }
+
+    nav {
+      background: #222;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 10px;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 40px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#application">Application</a>
+  <a href="#team">Team</a>
+  <a href="#leadership">Leadership</a>
+  <a href="#cases">Public Cases</a>
+
+  <button onclick="netlifyIdentity.open()">Login</button>
+</nav>
+
+<!-- PUBLIC SECTIONS -->
+
+<section id="application">
+  <h2>Application</h2>
+  <p>Placeholder: Application info goes here.</p>
+</section>
+
+<section id="team">
+  <h2>Meet Our Team</h2>
+  <p>Placeholder: Team members info goes here.</p>
+</section>
+
+<section id="leadership">
+  <h2>Meet Our Leadership</h2>
+  <p>Placeholder: Leadership info goes here.</p>
+</section>
+
+<section id="cases">
+  <h2>Public Cases</h2>
+  <p>Placeholder: Public case information goes here.</p>
+</section>
+
+<!-- STAFF AREA (HIDDEN UNTIL LOGIN) -->
+
+<section id="staff" class="hidden">
+  <h2>DoJ Staff Area</h2>
+
+  <h3>Chain of Command</h3>
+  <p>Placeholder: CoC info here.</p>
+
+  <h3>Documents</h3>
+  <p>Placeholder: Documents here.</p>
+
+  <h3>Contacts</h3>
+  <p>Placeholder: Contacts here.</p>
+
+  <h3>Staff Directory</h3>
+  <p>Placeholder: Staff list here.</p>
+</section>
+
+<!-- MIDDLE RANK AREA -->
+
+<section id="mr" class="hidden">
+  <h2>Middle Rank Area</h2>
+
+  <p>Placeholder: MR tools, reports, reviews, etc.</p>
+</section>
+
+<!-- LOGIN LOGIC -->
+
+<script>
+netlifyIdentity.on('init', user => {
+  if (user) handleAccess(user.email);
+});
+
+function handleAccess(email) {
+
+  // Show staff area to anyone logged in
+  if (email) {
+    document.getElementById("staff").classList.remove("hidden");
+  }
+
+  // Middle rank access
+  if (email === "middle@doj.com") {
+    document.getElementById("mr").classList.remove("hidden");
+  }
+
+  // You can expand this later for high/SHR/etc
+}
+</script>
+
+</body>
+</html>
