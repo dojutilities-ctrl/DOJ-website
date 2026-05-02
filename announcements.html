@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Announcements</title>
+</head>
+<body>
+
+<h1>Announcements</h1>
+
+<div id="posts"></div>
+
+<script>
+async function loadPosts() {
+  const repo = "YOUR_GITHUB_USERNAME/DOJ-website";
+  const folder = "content/mr"; // change per page
+
+  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
+  const files = await res.json();
+
+  const container = document.getElementById("posts");
+
+  for (let file of files) {
+    if (file.name.endsWith(".md")) {
+      const contentRes = await fetch(file.download_url);
+      const text = await contentRes.text();
+
+      const post = document.createElement("div");
+      post.innerHTML = `<pre>${text}</pre>`;
+      container.appendChild(post);
+    }
+  }
+}
+
+loadPosts();
+</script>
+
+</body>
+</html>
