@@ -3,36 +3,41 @@ backend:
   branch: main
 
 media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
   - name: "staff"
     label: "Staff Announcements"
     folder: "content/staff"
     create: true
+    slug: "{{slug}}"
     fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "body", label: "Body", widget: "markdown" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "mr"
     label: "MR Announcements"
     folder: "content/mr"
     create: true
+    slug: "{{slug}}"
     fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "body", label: "Body", widget: "markdown" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "hr"
     label: "HR Announcements"
     folder: "content/hr"
     create: true
+    slug: "{{slug}}"
     fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "body", label: "Body", widget: "markdown" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "shr"
     label: "SHR Announcements"
     folder: "content/shr"
     create: true
+    slug: "{{slug}}"
     fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "body", label: "Body", widget: "markdown" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
