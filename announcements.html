@@ -1,38 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Announcements</title>
-</head>
-<body>
-
-<h1>Announcements</h1>
-
-<div id="posts"></div>
-
 <script>
 async function loadPosts() {
   const repo = "dojutilities-ctrl/DOJ-website";
-  const folder = "content/mr"; // change per page
 
-  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
-  const files = await res.json();
+  const folders = [
+    "content/staff",
+    "content/mr",
+    "content/hr",
+    "content/shr",
+    "content/judicial",
+    "content/leadership"
+  ];
 
   const container = document.getElementById("posts");
 
-  for (let file of files) {
-    if (file.name.endsWith(".md")) {
-      const contentRes = await fetch(file.download_url);
-      const text = await contentRes.text();
+  for (let folder of folders) {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
+      const files = await res.json();
 
-      const post = document.createElement("div");
-      post.innerHTML = `<pre>${text}</pre>`;
-      container.appendChild(post);
+      for (let file of files) {
+        if (file.name.endsWith(".md")) {
+          const contentRes = await fetch(file.download_url);
+          const text = await contentRes.text();
+
+          const post = document.createElement("div");
+          post.style.border = "1px solid black";
+          post.style.margin = "10px";
+          post.style.padding = "10px";
+
+          post.innerHTML = `<h3>${file.name}</h3><pre>${text}</pre>`;
+          container.appendChild(post);
+        }
+      }
+    } catch (err) {
+      console.error("Error loading folder:", folder);
     }
   }
 }
 
 loadPosts();
 </script>
-
-</body>
-</html>
